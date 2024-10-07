@@ -8,11 +8,11 @@ type ShortTextInputProps = {
   disabled?: boolean;
 } & Omit<JSX.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onInput'>;
 
-const DEFAULT_HEIGHT = 56;
+const DEFAULT_HEIGHT = 40;
 
 export const ShortTextInput = (props: ShortTextInputProps) => {
   const [local, others] = splitProps(props, ['ref', 'onInput']);
-  const [height, setHeight] = createSignal(56);
+  const [height, setHeight] = createSignal(40);
 
   // @ts-expect-error: unknown type
   const handleInput = (e) => {
@@ -42,7 +42,7 @@ export const ShortTextInput = (props: ShortTextInputProps) => {
   return (
     <textarea
       ref={props.ref}
-      class="focus:outline-none bg-transparent px-4 py-4 flex-1 w-full h-full min-h-[56px] max-h-[128px] text-input disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 "
+      class="focus:outline-none bg-transparent px-4 py-4 flex-1 w-full h-full min-h-[40px] max-h-[128px] scrollable-container text-area-class text-input disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 "
       disabled={props.disabled}
       style={{
         'font-size': props.fontSize ? `${props.fontSize}px` : '16px',

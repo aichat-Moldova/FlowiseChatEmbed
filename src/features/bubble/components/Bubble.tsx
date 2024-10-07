@@ -15,6 +15,7 @@ export const Bubble = (props: BubbleProps) => {
   const [bubbleProps] = splitProps(props, ['theme']);
 
   const [isBotOpened, setIsBotOpened] = createSignal(false);
+  const [showTooltip, setShowTooltip] = createSignal(bubbleProps.theme?.tooltip?.showTooltip ?? false);
   const [isBotStarted, setIsBotStarted] = createSignal(false);
   const [buttonPosition, setButtonPosition] = createSignal({
     bottom: bubbleProps.theme?.button?.bottom ?? 20,
@@ -54,15 +55,16 @@ export const Bubble = (props: BubbleProps) => {
     };
   });
 
-  const showTooltip = bubbleProps.theme?.tooltip?.showTooltip ?? false;
+  // const showTooltip = ;
 
   return (
     <>
       <style>{styles}</style>
       <Tooltip
-        showTooltip={showTooltip && !isBotOpened()}
+        showTooltip={showTooltip() && !isBotOpened()}
         position={buttonPosition()}
         buttonSize={buttonSize}
+        toggleBot={toggleBot}
         tooltipMessage={bubbleProps.theme?.tooltip?.tooltipMessage}
         tooltipBackgroundColor={bubbleProps.theme?.tooltip?.tooltipBackgroundColor}
         tooltipTextColor={bubbleProps.theme?.tooltip?.tooltipTextColor}
@@ -97,7 +99,7 @@ export const Bubble = (props: BubbleProps) => {
           right: `${Math.min(buttonPosition().right, window.innerWidth - 410)}px`,
         }}
         class={
-          `fixed sm:right-5 rounded-lg w-full sm:w-[400px] max-h-[704px]` +
+          `fixed sm:right-5  w-full sm:w-[400px] max-h-[704px] !rounded-[30px] ` +
           (isBotOpened() ? ' opacity-1' : ' opacity-0 pointer-events-none') +
           ` bottom-${chatWindowBottom}px`
         }
@@ -108,10 +110,10 @@ export const Bubble = (props: BubbleProps) => {
               {/* Cross button For only mobile screen use this <Show when={isBotOpened() && window.innerWidth <= 640}>  */}
               <button
                 onClick={closeBot}
-                class="py-2 pr-3 absolute top-0 right-[-8px] m-[6px] bg-transparent text-white rounded-full z-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75"
+                class="py-2 pr-3 absolute top-0 right-[0px] m-[6px] bg-transparent text-white rounded-full z-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75"
                 title="Close Chat"
               >
-                <svg viewBox="0 0 24 24" width="24" height="24">
+                <svg viewBox="0 0 24 24" width="32" height="32">
                   <path
                     fill={bubbleProps.theme?.button?.iconColor ?? defaultIconColor}
                     d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"

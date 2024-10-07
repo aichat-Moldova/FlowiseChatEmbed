@@ -8,9 +8,8 @@ import tailwindcss from 'tailwindcss';
 import typescript from '@rollup/plugin-typescript';
 import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 import commonjs from '@rollup/plugin-commonjs';
-import { uglify } from 'rollup-plugin-uglify';
-//import serve from "rollup-plugin-serve";
-//import livereload from "rollup-plugin-livereload";
+import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';
 
 const extensions = ['.ts', '.tsx'];
 
@@ -19,7 +18,6 @@ const indexConfig = {
   plugins: [
     resolve({ extensions, browser: true }),
     commonjs(),
-    uglify(),
     json(),
     babel({
       babelHelpers: 'bundled',
@@ -37,16 +35,21 @@ const indexConfig = {
     }),
     typescript(),
     typescriptPaths({ preserveExtensions: true }),
-    terser({ output: { comments: false } }),
-    /* If you want to see the live app
+    terser({ output: { comments: false } }), // Using terser for minification
+    // Serve the app during development
     serve({
       open: true,
-      verbose: true,
-      contentBase: ["dist"],
-      host: "localhost",
+      verbose: false,
+      contentBase: ['dist'],
+      host: 'localhost',
       port: 5678,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow any origin
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
     }),
-    livereload({ watch: "dist" }),*/
+    livereload({ watch: 'dist' }),
   ],
 };
 

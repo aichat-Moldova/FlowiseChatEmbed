@@ -116,7 +116,7 @@ export const TextInput = (props: Props) => {
 
   return (
     <div
-      class="w-full h-auto max-h-[192px] min-h-[56px] flex flex-col items-end justify-between chatbot-input border border-[#eeeeee]"
+      class="w-full h-auto max-h-[192px] min-h-[40px] flex flex-col items-end justify-between chatbot-input !rounded-[35px] border border-[#eeeeee]"
       data-testid="input"
       style={{
         margin: 'auto',
@@ -125,11 +125,11 @@ export const TextInput = (props: Props) => {
       }}
       onKeyDown={submitWhenEnter}
     >
-      <Show when={warningMessage() !== ''}>
+      {/* <Show when={warningMessage() !== ''}>
         <div class="w-full px-4 pt-4 pb-1 text-red-500 text-sm" data-testid="warning-message">
           {warningMessage()}
         </div>
-      </Show>
+      </Show> */}
       <div class="w-full flex items-end justify-between">
         {props.uploadsConfig?.isImageUploadAllowed ? (
           <>

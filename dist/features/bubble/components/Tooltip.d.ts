@@ -6,6 +6,7 @@ type TooltipProps = {
     };
     buttonSize: number;
     tooltipMessage?: string;
+    toggleBot: () => void;
     tooltipBackgroundColor?: string;
     tooltipTextColor?: string;
     tooltipFontSize?: number;
