@@ -1366,7 +1366,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                         dateTimeToggle={props.dateTimeToggle}
                       />
                     )}
-                    {message.type === 'leadCaptureMessage' && leadsConfig()?.status && !getLocalStorageChatflow(props.chatflowid)?.lead && (
+                    {/*{message.type === 'leadCaptureMessage' && leadsConfig()?.status && !getLocalStorageChatflow(props.chatflowid)?.lead && ( */}
+                    {true && (
                       <LeadCaptureBubble
                         message={message}
                         chatflowid={props.chatflowid}
