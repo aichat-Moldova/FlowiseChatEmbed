@@ -1,6 +1,6 @@
-import { JSX, Show } from "solid-js";
-import { Spinner } from "@/components";
-import { SendButton, SendLeadButton } from "@/components/buttons/SendButton";
+import { JSX, Show } from 'solid-js';
+import { Spinner } from '@/components';
+import { SendButton, SendLeadButton } from '@/components/buttons/SendButton';
 
 type LeadCaptureButtonProps = {
   buttonColor?: string;
@@ -16,12 +16,12 @@ export const CancelLeadCaptureButton = (props: LeadCaptureButtonProps) => {
       disabled={props.isDisabled || props.isLoading}
       {...props}
       class={
-        "h-10 p-2 justify-center font-semibold focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 " +
+        'h-10 p-2 justify-center font-semibold focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 ' +
         props.class
       }
       style={{
-        background: "transparent",
-        border: "none",
+        background: 'transparent',
+        border: 'none',
         color: props.buttonColor,
       }}
       title="Cancel Lead Capture"
@@ -50,7 +50,7 @@ export const SaveLeadButton = (props: LeadCaptureButtonProps) => {
       {...props}
     >
       <Show when={!props.isLoading} fallback={<SaveLeadFallback />}>
-        <span style={{ "font-family": "Poppins, sans-serif" }}>Submit</span>
+        <span style={{ 'font-family': 'Poppins, sans-serif' }}>Submit</span>
       </Show>
     </SendLeadButton>
   );

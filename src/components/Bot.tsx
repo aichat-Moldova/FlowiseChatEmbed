@@ -145,7 +145,7 @@ export type BotProps = {
   clearChatOnReload?: boolean;
   disclaimer?: DisclaimerPopUpTheme;
   dateTimeToggle?: DateTimeToggleTheme;
-  toggleBot: ()=>  void;
+  toggleBot: () => void;
 };
 
 export type LeadsConfig = {
@@ -1300,7 +1300,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               'border-top-right-radius': props.isFullPage ? '0px' : '14px',
             }}
           >
-            <div class='flex items-center gap-1'>
+            <div class="flex items-center gap-1">
               <Show when={props.titleAvatarSrc}>
                 <>
                   <Avatar initialAvatarSrc={props.titleAvatarSrc} />
@@ -1312,7 +1312,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
               </Show>
             </div>
 
-            <div class='flex items-center'>
+            <div class="flex items-center">
               <DeleteButton
                 sendButtonColor={props.bubbleTextColor}
                 type="button"
@@ -1321,12 +1321,10 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                 on:click={clearChat}
               >
                 <span style={{ 'font-family': 'Poppins, sans-serif' }}>Clear</span>
-              </DeleteButton> 
+              </DeleteButton>
 
-              <ToggleBotButton toggleBot={props.toggleBot}>
-              </ToggleBotButton>
+              <ToggleBotButton toggleBot={props.toggleBot} />
             </div>
-
           </div>
         ) : null}
         <div class="flex flex-col w-full h-full justify-start z-0">

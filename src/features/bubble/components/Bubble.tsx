@@ -1,29 +1,21 @@
-import {
-  createSignal,
-  Show,
-  splitProps,
-  onCleanup,
-  createEffect,
-} from "solid-js";
-import styles from "../../../assets/index.css";
-import { BubbleButton } from "./BubbleButton";
-import { BubbleParams } from "../types";
-import { Bot, BotProps } from "../../../components/Bot";
-import Tooltip from "./Tooltip";
-import { getBubbleButtonSize } from "@/utils";
+import { createSignal, Show, splitProps, onCleanup, createEffect } from 'solid-js';
+import styles from '../../../assets/index.css';
+import { BubbleButton } from './BubbleButton';
+import { BubbleParams } from '../types';
+import { Bot, BotProps } from '../../../components/Bot';
+import Tooltip from './Tooltip';
+import { getBubbleButtonSize } from '@/utils';
 
-const defaultButtonColor = "#3B81F6";
-const defaultIconColor = "white";
+const defaultButtonColor = '#3B81F6';
+const defaultIconColor = 'white';
 
 export type BubbleProps = BotProps & BubbleParams;
 
 export const Bubble = (props: BubbleProps) => {
-  const [bubbleProps] = splitProps(props, ["theme"]);
+  const [bubbleProps] = splitProps(props, ['theme']);
 
   const [isBotOpened, setIsBotOpened] = createSignal(false);
-  const [showTooltip, setShowTooltip] = createSignal(
-    bubbleProps.theme?.tooltip?.showTooltip ?? false
-  );
+  const [showTooltip, setShowTooltip] = createSignal(bubbleProps.theme?.tooltip?.showTooltip ?? false);
   const [isBotStarted, setIsBotStarted] = createSignal(false);
   const [buttonPosition, setButtonPosition] = createSignal({
     bottom: bubbleProps.theme?.button?.bottom ?? 20,
@@ -53,10 +45,9 @@ export const Bubble = (props: BubbleProps) => {
 
   // Add viewport meta tag dynamically
   createEffect(() => {
-    const meta = document.createElement("meta");
-    meta.name = "viewport";
-    meta.content =
-      "width=device-width, initial-scale=1.0, interactive-widget=resizes-content";
+    const meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content = 'width=device-width, initial-scale=1.0, interactive-widget=resizes-content';
     document.head.appendChild(meta);
 
     return () => {
@@ -75,9 +66,7 @@ export const Bubble = (props: BubbleProps) => {
         buttonSize={buttonSize}
         toggleBot={toggleBot}
         tooltipMessage={bubbleProps.theme?.tooltip?.tooltipMessage}
-        tooltipBackgroundColor={
-          bubbleProps.theme?.tooltip?.tooltipBackgroundColor
-        }
+        tooltipBackgroundColor={bubbleProps.theme?.tooltip?.tooltipBackgroundColor}
         tooltipTextColor={bubbleProps.theme?.tooltip?.tooltipTextColor}
         tooltipFontSize={bubbleProps.theme?.tooltip?.tooltipFontSize} // Set the tooltip font size
       />
@@ -89,45 +78,29 @@ export const Bubble = (props: BubbleProps) => {
         dragAndDrop={bubbleProps.theme?.button?.dragAndDrop ?? false}
         autoOpen={bubbleProps.theme?.button?.autoWindowOpen?.autoOpen ?? false}
         openDelay={bubbleProps.theme?.button?.autoWindowOpen?.openDelay}
-        autoOpenOnMobile={
-          bubbleProps.theme?.button?.autoWindowOpen?.autoOpenOnMobile ?? false
-        }
+        autoOpenOnMobile={bubbleProps.theme?.button?.autoWindowOpen?.autoOpenOnMobile ?? false}
       />
       <div
         part="bot"
         style={{
-          height: bubbleProps.theme?.chatWindow?.height
-            ? `${bubbleProps.theme?.chatWindow?.height.toString()}px`
-            : "calc(100% - 150px)",
-          width: bubbleProps.theme?.chatWindow?.width
-            ? `${bubbleProps.theme?.chatWindow?.width.toString()}px`
-            : undefined,
-          transition:
-            "transform 200ms cubic-bezier(0, 1.2, 1, 1), opacity 150ms ease-out",
-          "transform-origin": "bottom right",
-          transform: isBotOpened() ? "scale3d(1, 1, 1)" : "scale3d(0, 0, 1)",
-          "box-shadow": "rgb(0 0 0 / 16%) 0px 5px 40px",
-          "background-color":
-            bubbleProps.theme?.chatWindow?.backgroundColor || "#ffffff",
-          "background-image": bubbleProps.theme?.chatWindow?.backgroundImage
-            ? `url(${bubbleProps.theme?.chatWindow?.backgroundImage})`
-            : "none",
-          "background-size": "cover",
-          "background-position": "center",
-          "background-repeat": "no-repeat",
-          "z-index": 42424242,
-          bottom: `${Math.min(
-            buttonPosition().bottom + buttonSize + 10,
-            window.innerHeight - chatWindowBottom
-          )}px`,
-          right: `${Math.min(
-            buttonPosition().right,
-            window.innerWidth - 410
-          )}px`,
+          height: bubbleProps.theme?.chatWindow?.height ? `${bubbleProps.theme?.chatWindow?.height.toString()}px` : 'calc(100% - 150px)',
+          width: bubbleProps.theme?.chatWindow?.width ? `${bubbleProps.theme?.chatWindow?.width.toString()}px` : undefined,
+          transition: 'transform 200ms cubic-bezier(0, 1.2, 1, 1), opacity 150ms ease-out',
+          'transform-origin': 'bottom right',
+          transform: isBotOpened() ? 'scale3d(1, 1, 1)' : 'scale3d(0, 0, 1)',
+          'box-shadow': 'rgb(0 0 0 / 16%) 0px 5px 40px',
+          'background-color': bubbleProps.theme?.chatWindow?.backgroundColor || '#ffffff',
+          'background-image': bubbleProps.theme?.chatWindow?.backgroundImage ? `url(${bubbleProps.theme?.chatWindow?.backgroundImage})` : 'none',
+          'background-size': 'cover',
+          'background-position': 'center',
+          'background-repeat': 'no-repeat',
+          'z-index': 42424242,
+          bottom: `${Math.min(buttonPosition().bottom + buttonSize + 10, window.innerHeight - chatWindowBottom)}px`,
+          right: `${Math.min(buttonPosition().right, window.innerWidth - 410)}px`,
         }}
         class={
           `fixed sm:right-5  w-full sm:w-[400px] max-h-[704px] !rounded-[14px] ` +
-          (isBotOpened() ? " opacity-1" : " opacity-0 pointer-events-none") +
+          (isBotOpened() ? ' opacity-1' : ' opacity-0 pointer-events-none') +
           ` bottom-${chatWindowBottom}px`
         }
       >
@@ -135,26 +108,16 @@ export const Bubble = (props: BubbleProps) => {
           <div class="relative h-full">
             <Bot
               toggleBot={toggleBot}
-              badgeBackgroundColor={
-                bubbleProps.theme?.chatWindow?.backgroundColor
-              }
-              bubbleBackgroundColor={
-                bubbleProps.theme?.button?.backgroundColor ?? defaultButtonColor
-              }
-              bubbleTextColor={
-                bubbleProps.theme?.button?.iconColor ?? defaultIconColor
-              }
+              badgeBackgroundColor={bubbleProps.theme?.chatWindow?.backgroundColor}
+              bubbleBackgroundColor={bubbleProps.theme?.button?.backgroundColor ?? defaultButtonColor}
+              bubbleTextColor={bubbleProps.theme?.button?.iconColor ?? defaultIconColor}
               showTitle={bubbleProps.theme?.chatWindow?.showTitle}
-              showAgentMessages={
-                bubbleProps.theme?.chatWindow?.showAgentMessages
-              }
+              showAgentMessages={bubbleProps.theme?.chatWindow?.showAgentMessages}
               title={bubbleProps.theme?.chatWindow?.title}
               titleAvatarSrc={bubbleProps.theme?.chatWindow?.titleAvatarSrc}
               welcomeMessage={bubbleProps.theme?.chatWindow?.welcomeMessage}
               errorMessage={bubbleProps.theme?.chatWindow?.errorMessage}
-              poweredByTextColor={
-                bubbleProps.theme?.chatWindow?.poweredByTextColor
-              }
+              poweredByTextColor={bubbleProps.theme?.chatWindow?.poweredByTextColor}
               textInput={bubbleProps.theme?.chatWindow?.textInput}
               botMessage={bubbleProps.theme?.chatWindow?.botMessage}
               userMessage={bubbleProps.theme?.chatWindow?.userMessage}
@@ -163,17 +126,13 @@ export const Bubble = (props: BubbleProps) => {
               footer={bubbleProps.theme?.chatWindow?.footer}
               sourceDocsTitle={bubbleProps.theme?.chatWindow?.sourceDocsTitle}
               starterPrompts={bubbleProps.theme?.chatWindow?.starterPrompts}
-              starterPromptFontSize={
-                bubbleProps.theme?.chatWindow?.starterPromptFontSize
-              }
+              starterPromptFontSize={bubbleProps.theme?.chatWindow?.starterPromptFontSize}
               chatflowid={props.chatflowid}
               chatflowConfig={props.chatflowConfig}
               apiHost={props.apiHost}
               onRequest={props.onRequest}
               observersConfig={props.observersConfig}
-              clearChatOnReload={
-                bubbleProps.theme?.chatWindow?.clearChatOnReload
-              }
+              clearChatOnReload={bubbleProps.theme?.chatWindow?.clearChatOnReload}
               disclaimer={bubbleProps.theme?.disclaimer}
               dateTimeToggle={bubbleProps.theme?.chatWindow?.dateTimeToggle}
             />

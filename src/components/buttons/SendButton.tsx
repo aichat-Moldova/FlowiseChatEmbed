@@ -1,6 +1,6 @@
-import { Show } from "solid-js";
-import { JSX } from "solid-js/jsx-runtime";
-import { DeleteIcon, SendIcon } from "../icons";
+import { Show } from 'solid-js';
+import { JSX } from 'solid-js/jsx-runtime';
+import { DeleteIcon, SendIcon } from '../icons';
 
 type SendButtonProps = {
   sendButtonColor?: string;
@@ -16,7 +16,7 @@ type SendLeadButton = {
   disableIcon?: boolean;
 } & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const defaultIconColor = "white";
+const defaultIconColor = 'white';
 
 type ToggleBotButton = {
   toggleBot: () => void;
@@ -30,16 +30,13 @@ export const SendButton = (props: SendButtonProps) => {
       disabled={props.isDisabled || props.isLoading}
       {...props}
       class={
-        "py-2 px-4 justify-center font-semibold text-white focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 chatbot-button " +
+        'py-2 px-4 justify-center font-semibold text-white focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 chatbot-button ' +
         props.class
       }
-      style={{ background: "transparent", border: "none" }}
+      style={{ background: 'transparent', border: 'none' }}
     >
       <Show when={!props.isLoading} fallback={<Spinner class="text-white" />}>
-        <SendIcon
-          color={props.sendButtonColor}
-          class={"send-icon flex " + (props.disableIcon ? "hidden" : "")}
-        />
+        <SendIcon color={props.sendButtonColor} class={'send-icon flex ' + (props.disableIcon ? 'hidden' : '')} />
       </Show>
     </button>
   );
@@ -52,16 +49,13 @@ export const SendLeadButton = (props: SendLeadButton) => {
       disabled={props.isDisabled || props.isLoading}
       {...props}
       class={
-        "max-h-[40px] w-full px-3 py-1 justify-center font-semibold text-white focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 chatbot-button " +
+        'max-h-[40px] w-full px-3 py-1 justify-center font-semibold text-white focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 chatbot-button ' +
         props.class
       }
-      style={{ background: props.sendButtonColor, border: "none" }}
+      style={{ background: props.sendButtonColor, border: 'none' }}
     >
       <Show when={!props.isLoading} fallback={<Spinner class="text-white" />}>
-        <SendIcon
-          color={props.sendButtonColor}
-          class={"send-icon flex " + (props.disableIcon ? "hidden" : "")}
-        />
+        <SendIcon color={props.sendButtonColor} class={'send-icon flex ' + (props.disableIcon ? 'hidden' : '')} />
       </Show>
     </button>
   );
@@ -87,8 +81,8 @@ export const ToggleBotButton = (props: ToggleBotButton) => {
 
 export const DeleteButton = (props: SendButtonProps) => {
   // Check if <flowise-fullchatbot> is present in the DOM
-  const isFullChatbot = document.querySelector("flowise-fullchatbot") !== null;
-  const paddingClass = isFullChatbot ? "px-4" : "";
+  const isFullChatbot = document.querySelector('flowise-fullchatbot') !== null;
+  const paddingClass = isFullChatbot ? 'px-4' : '';
 
   return (
     <button
@@ -99,14 +93,11 @@ export const DeleteButton = (props: SendButtonProps) => {
         `${paddingClass} justify-center font-semibold text-white focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75 chatbot-button ` +
         props.class
       }
-      style={{ background: "transparent", border: "none" }}
+      style={{ background: 'transparent', border: 'none' }}
       title="Reset Chat"
     >
       <Show when={!props.isLoading} fallback={<Spinner class="text-white" />}>
-        <DeleteIcon
-          color={props.sendButtonColor}
-          class={"send-icon flex " + (props.disableIcon ? "hidden" : "")}
-        />
+        <DeleteIcon color={props.sendButtonColor} class={'send-icon flex ' + (props.disableIcon ? 'hidden' : '')} />
       </Show>
     </button>
   );
@@ -115,20 +106,13 @@ export const DeleteButton = (props: SendButtonProps) => {
 export const Spinner = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => (
   <svg
     {...props}
-    class={"animate-spin -ml-1 mr-3 h-5 w-5 " + props.class}
+    class={'animate-spin -ml-1 mr-3 h-5 w-5 ' + props.class}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     data-testid="loading-spinner"
   >
-    <circle
-      class="opacity-25"
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      stroke-width="4"
-    />
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
     <path
       class="opacity-75"
       fill="currentColor"
