@@ -1,4 +1,4 @@
-import { LeadsConfig, MessageType } from '@/components/Bot';
+import { LeadsConfig, MessageType } from "@/components/Bot";
 type Props = {
     message: MessageType;
     chatflowid: string;

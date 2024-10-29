@@ -97,6 +97,7 @@ export type BotProps = {
     clearChatOnReload?: boolean;
     disclaimer?: DisclaimerPopUpTheme;
     dateTimeToggle?: DateTimeToggleTheme;
+    toggleBot: () => void;
 };
 export type LeadsConfig = {
     status: boolean;

@@ -116,7 +116,7 @@ export const TextInput = (props: Props) => {
 
   return (
     <div
-      class="w-full h-auto max-h-[192px] min-h-[40px] flex flex-col items-end justify-between chatbot-input !rounded-[35px] border border-[#eeeeee]"
+      class="w-full max-h-[192px] h-[58px] flex flex-col items-end justify-between chatbot-input !rounded-[35px] border border-[#eeeeee]"
       data-testid="input"
       style={{
         margin: 'auto',
