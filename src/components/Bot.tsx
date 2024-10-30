@@ -145,7 +145,7 @@ export type BotProps = {
   clearChatOnReload?: boolean;
   disclaimer?: DisclaimerPopUpTheme;
   dateTimeToggle?: DateTimeToggleTheme;
-  toggleBot: () => void;
+  toggleBot?: () => void;
 };
 
 export type LeadsConfig = {
@@ -1323,7 +1323,15 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                 <span style={{ 'font-family': 'Poppins, sans-serif' }}>Clear</span>
               </DeleteButton>
 
-              <ToggleBotButton toggleBot={props.toggleBot} />
+              <ToggleBotButton
+                toggleBot={
+                  props.toggleBot
+                    ? props.toggleBot
+                    : () => {
+                        console.warn('toggleBot не определен!');
+                      }
+                }
+              />
             </div>
           </div>
         ) : null}
