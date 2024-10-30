@@ -1,5 +1,5 @@
-import { IAction, MessageType } from "../Bot";
-import { DateTimeToggleTheme } from "@/features/bubble/types";
+import { IAction, MessageType } from '../Bot';
+import { DateTimeToggleTheme } from '@/features/bubble/types';
 type Props = {
     message: MessageType;
     chatflowid: string;

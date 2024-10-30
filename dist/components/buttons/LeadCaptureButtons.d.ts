@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX } from 'solid-js';
 type LeadCaptureButtonProps = {
     buttonColor?: string;
     isDisabled?: boolean;
