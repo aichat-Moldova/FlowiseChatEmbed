@@ -13,6 +13,7 @@ import { GuestBubble } from './bubbles/GuestBubble';
 import { BotBubble } from './bubbles/BotBubble';
 import { LoadingBubble } from './bubbles/LoadingBubble';
 import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
+
 import {
   BotMessageTheme,
   FooterTheme,
@@ -25,7 +26,7 @@ import {
 import { Badge } from './Badge';
 import { Popup, DisclaimerPopup } from '@/features/popup';
 import { Avatar } from '@/components/avatars/Avatar';
-import { DeleteButton, SendButton } from '@/components/buttons/SendButton';
+import { ToggleBotButton, DeleteButton, SendButton } from '@/components/buttons/SendButton';
 import { FilePreview } from '@/components/inputs/textInput/components/FilePreview';
 import { CircleDotIcon, SparklesIcon, TrashIcon } from './icons';
 import { CancelButton } from './buttons/CancelButton';
@@ -144,6 +145,7 @@ export type BotProps = {
   clearChatOnReload?: boolean;
   disclaimer?: DisclaimerPopUpTheme;
   dateTimeToggle?: DateTimeToggleTheme;
+  toggleBot?: () => void;
 };
 
 export type LeadsConfig = {
@@ -1254,7 +1256,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       <div
         ref={botContainer}
         class={
-          'relative flex w-full h-full text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container  !rounded-[30px] ' +
+          'relative flex w-full h-full text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container  !rounded-[14px] ' +
           props.class
         }
         onDragEnter={handleDrag}
@@ -1290,33 +1292,47 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
         {props.showTitle ? (
           <div
-            class="flex flex-row items-center w-full h-[50px] px-4 absolute top-0 left-0 z-10"
+            class="flex justify-between items-center w-full h-[50px] px-4 absolute top-0 left-0 z-10"
             style={{
               background: props.bubbleBackgroundColor,
               color: props.bubbleTextColor,
-              'border-top-left-radius': props.isFullPage ? '0px' : '30px',
-              'border-top-right-radius': props.isFullPage ? '0px' : '30px',
+              'border-top-left-radius': props.isFullPage ? '0px' : '14px',
+              'border-top-right-radius': props.isFullPage ? '0px' : '14px',
             }}
           >
-            <Show when={props.titleAvatarSrc}>
-              <>
-                <div style={{ width: '15px' }} />
-                <Avatar initialAvatarSrc={props.titleAvatarSrc} />
-              </>
-            </Show>
-            <Show when={props.title}>
-              <span class="px-3 whitespace-pre-wrap font-semibold max-w-full">{props.title}</span>
-            </Show>
-            <div style={{ flex: 1 }} />
-            <DeleteButton
-              sendButtonColor={props.bubbleTextColor}
-              type="button"
-              isDisabled={messages().length === 1}
-              class="my-2 ml-2"
-              on:click={clearChat}
-            >
-              <span style={{ 'font-family': 'Poppins, sans-serif' }}>Clear</span>
-            </DeleteButton>
+            <div class="flex items-center gap-1">
+              <Show when={props.titleAvatarSrc}>
+                <>
+                  <Avatar initialAvatarSrc={props.titleAvatarSrc} />
+                </>
+              </Show>
+
+              <Show when={props.title}>
+                <span class="whitespace-pre-wrap font-semibold max-w-full">{props.title}</span>
+              </Show>
+            </div>
+
+            <div class="flex items-center">
+              <DeleteButton
+                sendButtonColor={props.bubbleTextColor}
+                type="button"
+                isDisabled={messages().length === 1}
+                class="my-2 ml-2"
+                on:click={clearChat}
+              >
+                <span style={{ 'font-family': 'Poppins, sans-serif' }}>Clear</span>
+              </DeleteButton>
+
+              <ToggleBotButton
+                toggleBot={
+                  props.toggleBot
+                    ? props.toggleBot
+                    : () => {
+                        console.warn('toggleBot не определен!');
+                      }
+                }
+              />
+            </div>
           </div>
         ) : null}
         <div class="flex flex-col w-full h-full justify-start z-0">
@@ -1450,7 +1466,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                   </div>
                 ) : (
                   <div
-                    class="h-[58px] flex items-center justify-between chatbot-input border border-[#eeeeee]"
+                    class="h-[58px] flex items-center justify-between chatbot-input border border-[#eeeeee] !rounded-[35px]"
                     data-testid="input"
                     style={{
                       margin: 'auto',

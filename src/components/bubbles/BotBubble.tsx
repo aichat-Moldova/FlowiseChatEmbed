@@ -54,7 +54,11 @@ export const BotBubble = (props: Props) => {
     try {
       const response = await sendFileDownloadQuery({
         apiHost: props.apiHost,
-        body: { fileName: fileAnnotation.fileName, chatflowId: props.chatflowid, chatId: props.chatId } as any,
+        body: {
+          fileName: fileAnnotation.fileName,
+          chatflowId: props.chatflowid,
+          chatId: props.chatId,
+        } as any,
         onRequest: props.onRequest,
       });
       const blob = new Blob([response.data]);
@@ -426,7 +430,14 @@ export const BotBubble = (props: Props) => {
             <Show when={props.sourceDocsTitle}>
               <span class="px-2 py-[10px] font-semibold">{props.sourceDocsTitle}</span>
             </Show>
-            <div style={{ display: 'flex', 'flex-direction': 'row', width: '100%', 'flex-wrap': 'wrap' }}>
+            <div
+              style={{
+                display: 'flex',
+                'flex-direction': 'row',
+                width: '100%',
+                'flex-wrap': 'wrap',
+              }}
+            >
               <For each={[...removeDuplicateURL(props.message)]}>
                 {(src) => {
                   const URL = isValidURL(src.metadata.source);
