@@ -1,8 +1,8 @@
-import { For, Show, onMount } from "solid-js";
-import { Avatar } from "../avatars/Avatar";
-import { Marked } from "@ts-stack/markdown";
-import { FileUpload, MessageType } from "../Bot";
-import { AttachmentIcon } from "../icons";
+import { For, Show, onMount } from 'solid-js';
+import { Avatar } from '../avatars/Avatar';
+import { Marked } from '@ts-stack/markdown';
+import { FileUpload, MessageType } from '../Bot';
+import { AttachmentIcon } from '../icons';
 
 type Props = {
   message: MessageType;
@@ -16,8 +16,8 @@ type Props = {
   fontSize?: number;
 };
 
-const defaultBackgroundColor = "#3B81F6";
-const defaultTextColor = "#ffffff";
+const defaultBackgroundColor = '#3B81F6';
+const defaultTextColor = '#ffffff';
 const defaultFontSize = 16;
 
 Marked.setOptions({ isNoP: true, sanitize: true });
@@ -32,7 +32,7 @@ export const GuestBubble = (props: Props) => {
   });
 
   const renderFileUploads = (item: Partial<FileUpload>) => {
-    if (item?.mime?.startsWith("image/")) {
+    if (item?.mime?.startsWith('image/')) {
       const fileData = `${props.apiHost}/api/v1/get-upload-file?chatflowId=${props.chatflowid}&chatId=${props.chatId}&fileName=${item.name}`;
       const src = (item.data as string) ?? fileData;
       return (
@@ -40,23 +40,18 @@ export const GuestBubble = (props: Props) => {
           <img class="w-full h-full bg-cover" src={src} />
         </div>
       );
-    } else if (item?.mime?.startsWith("audio/")) {
+    } else if (item?.mime?.startsWith('audio/')) {
       const fileData = `${props.apiHost}/api/v1/get-upload-file?chatflowId=${props.chatflowid}&chatId=${props.chatId}&fileName=${item.name}`;
       const src = (item.data as string) ?? fileData;
       return (
-        <audio
-          class="w-[200px] h-10 block bg-cover bg-center rounded-none text-transparent"
-          controls
-        >
+        <audio class="w-[200px] h-10 block bg-cover bg-center rounded-none text-transparent" controls>
           Your browser does not support the &lt;audio&gt; tag.
           <source src={src} type={item.mime} />
         </audio>
       );
     } else {
       return (
-        <div
-          class={`inline-flex items-center h-12 max-w-max p-2 mr-1 flex-none bg-transparent border border-gray-300 rounded-md`}
-        >
+        <div class={`inline-flex items-center h-12 max-w-max p-2 mr-1 flex-none bg-transparent border border-gray-300 rounded-md`}>
           <AttachmentIcon color={props.textColor ?? defaultTextColor} />
           <span class={`ml-1.5 text-inherit`}>{item.name}</span>
         </div>
@@ -65,17 +60,14 @@ export const GuestBubble = (props: Props) => {
   };
 
   return (
-    <div
-      class="flex justify-end mb-2 items-end guest-container"
-      style={{ "margin-left": "50px" }}
-    >
+    <div class="flex justify-end mb-2 items-end guest-container" style={{ 'margin-left': '50px' }}>
       <div
         class="max-w-full flex flex-col justify-center items-start chatbot-guest-bubble px-4 py-2 gap-2 mr-2 break-all"
         data-testid="guest-bubble"
         style={{
-          "background-color": props.backgroundColor ?? defaultBackgroundColor,
+          'background-color': props.backgroundColor ?? defaultBackgroundColor,
           color: props.textColor ?? defaultTextColor,
-          "border-radius": "6px",
+          'border-radius': '6px',
         }}
       >
         {props.message.fileUploads && props.message.fileUploads.length > 0 && (
@@ -92,9 +84,7 @@ export const GuestBubble = (props: Props) => {
             ref={userMessageEl}
             class="mr-2 whitespace-pre-wrap"
             style={{
-              "font-size": props.fontSize
-                ? `${props.fontSize}px`
-                : `${defaultFontSize}px`,
+              'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
             }}
           />
         )}

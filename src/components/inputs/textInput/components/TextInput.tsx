@@ -6,7 +6,7 @@ import { FileEvent, UploadsConfig } from '@/components/Bot';
 import { ImageUploadButton } from '@/components/buttons/ImageUploadButton';
 import { RecordAudioButton } from '@/components/buttons/RecordAudioButton';
 import { AttachmentUploadButton } from '@/components/buttons/AttachmentUploadButton';
-import {DEFAULT_HEIGHT} from '../components/ShortTextInput'
+import { DEFAULT_HEIGHT } from '../components/ShortTextInput';
 
 type Props = {
   placeholder?: string;
@@ -36,7 +36,6 @@ const defaultSendSound = 'https://cdn.jsdelivr.net/gh/FlowiseAI/FlowiseChatEmbed
 export const TextInput = (props: Props) => {
   const [height, setHeight] = createSignal(DEFAULT_HEIGHT);
 
-
   const [inputValue, setInputValue] = createSignal(props.defaultValue ?? '');
   const [isSendButtonDisabled, setIsSendButtonDisabled] = createSignal(false);
   const [warningMessage, setWarningMessage] = createSignal('');
@@ -61,15 +60,13 @@ export const TextInput = (props: Props) => {
 
   const checkIfInputIsValid = () => warningMessage() === '' && inputRef?.reportValidity();
 
-
-
   const submit = () => {
     if (checkIfInputIsValid()) {
       props.onSubmit(inputValue());
       if (props.sendMessageSound && audioRef) {
         audioRef.play();
       }
-      setHeight(DEFAULT_HEIGHT)
+      setHeight(DEFAULT_HEIGHT);
       setInputValue('');
     }
   };
@@ -138,9 +135,7 @@ export const TextInput = (props: Props) => {
         </div>
       </Show> */}
       <div class="w-full flex items-end justify-between">
-        {/*         {props.uploadsConfig?.isImageUploadAllowed ? (
- */}
-        {true ? (
+        {props.uploadsConfig?.isImageUploadAllowed ? (
           <>
             <ImageUploadButton
               buttonColor={props.sendButtonColor}
@@ -188,7 +183,7 @@ export const TextInput = (props: Props) => {
         ) : null}
         <ShortTextInput
           height={height()}
-          setHeightF={(height: number)=>setHeight(height)}
+          setHeightF={(height: number) => setHeight(height)}
           ref={inputRef as HTMLTextAreaElement}
           onInput={handleInput}
           value={inputValue()}
