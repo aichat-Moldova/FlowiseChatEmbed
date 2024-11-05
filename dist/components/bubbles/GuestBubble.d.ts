@@ -1,4 +1,4 @@
-import { MessageType } from '../Bot';
+import { MessageType } from "../Bot";
 type Props = {
     message: MessageType;
     apiHost?: string;

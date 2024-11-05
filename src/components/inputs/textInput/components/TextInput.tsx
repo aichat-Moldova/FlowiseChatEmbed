@@ -1,11 +1,12 @@
 import { ShortTextInput } from './ShortTextInput';
 import { isMobile } from '@/utils/isMobileSignal';
-import { Show, createSignal, createEffect, onMount, Setter } from 'solid-js';
+import { createSignal, createEffect, onMount, Setter } from 'solid-js';
 import { SendButton } from '@/components/buttons/SendButton';
 import { FileEvent, UploadsConfig } from '@/components/Bot';
 import { ImageUploadButton } from '@/components/buttons/ImageUploadButton';
 import { RecordAudioButton } from '@/components/buttons/RecordAudioButton';
 import { AttachmentUploadButton } from '@/components/buttons/AttachmentUploadButton';
+import {DEFAULT_HEIGHT} from '../components/ShortTextInput'
 
 type Props = {
   placeholder?: string;
@@ -33,6 +34,9 @@ const defaultTextColor = '#303235';
 const defaultSendSound = 'https://cdn.jsdelivr.net/gh/FlowiseAI/FlowiseChatEmbed@latest/src/assets/send_message.mp3';
 
 export const TextInput = (props: Props) => {
+  const [height, setHeight] = createSignal(DEFAULT_HEIGHT);
+
+
   const [inputValue, setInputValue] = createSignal(props.defaultValue ?? '');
   const [isSendButtonDisabled, setIsSendButtonDisabled] = createSignal(false);
   const [warningMessage, setWarningMessage] = createSignal('');
@@ -57,12 +61,15 @@ export const TextInput = (props: Props) => {
 
   const checkIfInputIsValid = () => warningMessage() === '' && inputRef?.reportValidity();
 
+
+
   const submit = () => {
     if (checkIfInputIsValid()) {
       props.onSubmit(inputValue());
       if (props.sendMessageSound && audioRef) {
         audioRef.play();
       }
+      setHeight(DEFAULT_HEIGHT)
       setInputValue('');
     }
   };
@@ -116,7 +123,7 @@ export const TextInput = (props: Props) => {
 
   return (
     <div
-      class="w-full max-h-[192px] h-[58px] flex flex-col items-end justify-between chatbot-input !rounded-[35px] border border-[#eeeeee]"
+      class="w-full max-h-[192px] min-h-[40px] flex flex-col items-end justify-between chatbot-input !rounded-[10px] border border-[#eeeeee]"
       data-testid="input"
       style={{
         margin: 'auto',
@@ -131,12 +138,14 @@ export const TextInput = (props: Props) => {
         </div>
       </Show> */}
       <div class="w-full flex items-end justify-between">
-        {props.uploadsConfig?.isImageUploadAllowed ? (
+        {/*         {props.uploadsConfig?.isImageUploadAllowed ? (
+ */}
+        {true ? (
           <>
             <ImageUploadButton
               buttonColor={props.sendButtonColor}
               type="button"
-              class="m-0 h-14 flex items-center justify-center"
+              class="m-0 h-10 flex items-center justify-center"
               isDisabled={props.disabled || isSendButtonDisabled()}
               on:click={handleImageUploadClick}
             >
@@ -161,7 +170,7 @@ export const TextInput = (props: Props) => {
             <AttachmentUploadButton
               buttonColor={props.sendButtonColor}
               type="button"
-              class="m-0 h-14 flex items-center justify-center"
+              class="m-0 h-10 flex items-center justify-center"
               isDisabled={props.disabled || isSendButtonDisabled()}
               on:click={handleFileUploadClick}
             >
@@ -178,6 +187,8 @@ export const TextInput = (props: Props) => {
           </>
         ) : null}
         <ShortTextInput
+          height={height()}
+          setHeightF={(height: number)=>setHeight(height)}
           ref={inputRef as HTMLTextAreaElement}
           onInput={handleInput}
           value={inputValue()}
@@ -189,7 +200,7 @@ export const TextInput = (props: Props) => {
           <RecordAudioButton
             buttonColor={props.sendButtonColor}
             type="button"
-            class="m-0 start-recording-button h-14 flex items-center justify-center"
+            class="m-0 start-recording-button h-10 flex items-center justify-center"
             isDisabled={props.disabled || isSendButtonDisabled()}
             on:click={props.onMicrophoneClicked}
           >
@@ -200,7 +211,7 @@ export const TextInput = (props: Props) => {
           sendButtonColor={props.sendButtonColor}
           type="button"
           isDisabled={props.disabled || isSendButtonDisabled()}
-          class="m-0 h-14 flex items-center justify-center"
+          class="m-0 h-10 flex items-center justify-center"
           on:click={submit}
         >
           <span style={{ 'font-family': 'Poppins, sans-serif' }}>Send</span>
