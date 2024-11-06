@@ -1466,7 +1466,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                   </div>
                 ) : (
                   <div
-                    class="h-[58px] flex items-center justify-between chatbot-input border border-[#eeeeee] !rounded-[35px]"
+                    class="min-h-[40px] flex items-center justify-between chatbot-input border border-[#eeeeee] !rounded-[10px]"
                     data-testid="input"
                     style={{
                       margin: 'auto',

@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js/jsx-runtime';
+import { JSX } from "solid-js/jsx-runtime";
 type CancelButtonProps = {
     buttonColor?: string;
     isDisabled?: boolean;
